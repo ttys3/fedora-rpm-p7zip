@@ -100,13 +100,13 @@ EOF
 - Move files from /usr/share to /usr/libexec.
 - Various other minor changes.
 
-* Mon Jan 24 2005 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Mon Jan 24 2005 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - upgraded to 4.14.01
 
-* Sun Jan 16 2005 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Sun Jan 16 2005 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - upgraded to 4.14
 
-* Mon Dec 20 2004 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Mon Dec 20 2004 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - added 7za script and moved SFX module to {_datadir}/%{name}/ to allow 7za & 7z
    use it simultaneously
  - returned to plugins in separate package
@@ -116,14 +116,14 @@ EOF
  - added 7z (not just 7za) with a shell wrapper
  - added gcc-c++ to the BuildRequires list
 
-* Sat Nov 20 2004 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Sat Nov 20 2004 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - upgraded to 4.12
  - added virtual file system for Midnight Commander
 
-* Thu Nov 11 2004 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Thu Nov 11 2004 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - upgraded to 4.10
  - plugins support was dropped out from p7zip
 
-* Sun Aug 29 2004 Marcin Zaj±czkowski <mszpak@wp.pl>
+* Sun Aug 29 2004 Marcin ZajÄ…czkowski <mszpak@wp.pl>
  - initial release
 
