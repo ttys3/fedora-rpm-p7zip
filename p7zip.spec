@@ -1,11 +1,11 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.20
+Version: 4.29
 Release: 1%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
-Source: http://dl.sf.net/p7zip/p7zip_%{version}_src.tar.bz2
+Source: http://dl.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gcc-c++
 
@@ -87,6 +87,9 @@ EOF
 
 
 %changelog
+* Mon Oct 10 2005 Matthias Saou <http://freshrpms.net/> 4.29-1
+- Update to 4.29.
+
 * Sun Jun 05 2005 Dag Wieers <dag@wieers.com> - 4.20-1
 - Updated to release 4.20.
 
