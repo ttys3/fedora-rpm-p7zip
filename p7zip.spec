@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.29
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
@@ -31,12 +31,12 @@ This package contains also a virtual file system for Midnight Commander.
 # same directory as the binaries, and we don't want them in %{_bindir}.
 %{__cat} << 'EOF' > 7za.sh
 #!/bin/sh
-exec %{_libexecdir}/p7zip/7za $@
+exec %{_libexecdir}/p7zip/7za "$@"
 EOF
 
 %{__cat} << 'EOF' > 7z.sh
 #!/bin/sh
-exec %{_libexecdir}/p7zip/7z $@
+exec %{_libexecdir}/p7zip/7z "$@"
 EOF
 
 %build
@@ -87,6 +87,9 @@ EOF
 
 
 %changelog
+* Thu Oct 27 2005 Matthias Saou <http://freshrpms.net/> 4.29-3
+- Double quote args passed inside the shell scripts, to fix #171480.
+
 * Mon Oct 10 2005 Matthias Saou <http://freshrpms.net/> 4.29-2
 - Update to 4.29.
 
