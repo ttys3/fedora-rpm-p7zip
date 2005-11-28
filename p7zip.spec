@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.29
-Release: 3%{?dist}
+Version: 4.30
+Release: 1%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
@@ -38,6 +38,7 @@ EOF
 #!/bin/sh
 exec %{_libexecdir}/p7zip/7z "$@"
 EOF
+
 
 %build
 %ifarch %{ix86} ppc
@@ -87,6 +88,9 @@ EOF
 
 
 %changelog
+* Mon Nov 28 2005 Matthias Saou <http://freshrpms.net/> 4.30-1
+- Update to 4.30.
+
 * Thu Oct 27 2005 Matthias Saou <http://freshrpms.net/> 4.29-3
 - Double quote args passed inside the shell scripts, to fix #171480.
 
