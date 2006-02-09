@@ -1,11 +1,12 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.30
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 Source: http://dl.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
+Patch0: p7zip_4.30-extraqualif.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gcc-c++
 
@@ -26,6 +27,7 @@ This package contains also a virtual file system for Midnight Commander.
 
 %prep
 %setup -n %{name}_%{version}
+%patch0 -p1 -b .extraqualif
 
 # Create wrapper scripts, as 7zCon.sfx and Codecs/Formats need to be in the
 # same directory as the binaries, and we don't want them in %{_bindir}.
@@ -88,6 +90,10 @@ EOF
 
 
 %changelog
+* Thu Feb  9 2006 Matthias Saou <http://freshrpms.net/> 4.30-2
+- Rebuild for new gcc/glibc.
+- Include gcc 4.1 patch for extra qualification errors.
+
 * Mon Nov 28 2005 Matthias Saou <http://freshrpms.net/> 4.30-1
 - Update to 4.30.
 
