@@ -1,14 +1,19 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.30
-Release: 3%{?dist}
+Version: 4.39
+Release: 1%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
-Source: http://dl.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
-Patch0: p7zip_4.30-extraqualif.patch
+# RAR sources removed since their license is incompatible with the LGPL
+#Source: http://dl.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
+# VERSION=
+# tar xjvf p7zip_${VERSION}_src_all.tar.bz2
+# rm -rf p7zip_${VERSION}/7zip/{Archive,Compress,Crypto}/Rar*
+# rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
+# tar cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
+Source: p7zip_%{version}_src_all-norar.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: gcc-c++
 
 %description
 p7zip is a port of 7za.exe for Unix. 7-Zip is a file archiver with a very high
@@ -27,7 +32,6 @@ This package contains also a virtual file system for Midnight Commander.
 
 %prep
 %setup -n %{name}_%{version}
-%patch0 -p1 -b .extraqualif
 
 # Create wrapper scripts, as 7zCon.sfx and Codecs/Formats need to be in the
 # same directory as the binaries, and we don't want them in %{_bindir}.
@@ -44,7 +48,7 @@ EOF
 
 %build
 %ifarch %{ix86} ppc
-%{__cp} -f makefile.linux_x86_ppc_alpha makefile.machine
+%{__cp} -f makefile.linux_x86_ppc_alpha__gcc_4.X makefile.machine
 %endif
 %ifarch x86_64
 %{__cp} -f makefile.linux_amd64 makefile.machine
@@ -90,6 +94,12 @@ EOF
 
 
 %changelog
+* Tue May  2 2006 Matthias Saou <http://freshrpms.net/> 4.39-1
+- Update to 4.39.
+- Remove no longer needed gcc 4.1 patch.
+- Use the gcc_4.X makefile.
+- Remove RAR licensed files and RAR license itself (#190277).
+
 * Mon Mar  6 2006 Matthias Saou <http://freshrpms.net/> 4.30-3
 - FC5 rebuild.
 
