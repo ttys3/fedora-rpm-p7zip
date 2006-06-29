@@ -1,6 +1,6 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.39
+Version: 4.42
 Release: 1%{?dist}
 License: LGPL
 Group: Applications/Archiving
@@ -11,7 +11,7 @@ URL: http://p7zip.sourceforge.net/
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
 # rm -rf p7zip_${VERSION}/7zip/{Archive,Compress,Crypto}/Rar*
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
-# tar cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
+# tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Thu Jun 29 2006 Matthias Saou <http://freshrpms.net/> 4.42-1
+- Update to 4.42.
+
 * Tue May  2 2006 Matthias Saou <http://freshrpms.net/> 4.39-1
 - Update to 4.39.
 - Remove no longer needed gcc 4.1 patch.
