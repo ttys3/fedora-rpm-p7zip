@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.42
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Mon Aug 28 2006 Matthias Saou <http://freshrpms.net/> 4.42-2
+- FC6 rebuild.
+
 * Thu Jun 29 2006 Matthias Saou <http://freshrpms.net/> 4.42-1
 - Update to 4.42.
 
