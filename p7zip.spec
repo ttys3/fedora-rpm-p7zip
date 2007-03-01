@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.42
-Release: 2%{?dist}
+Version: 4.44
+Release: 1%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
@@ -9,7 +9,7 @@ URL: http://p7zip.sourceforge.net/
 #Source: http://dl.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
 # VERSION=
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
-# rm -rf p7zip_${VERSION}/7zip/{Archive,Compress,Crypto}/Rar*
+# rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto}/Rar*
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
@@ -23,7 +23,7 @@ compression ratio. The original version can be found at http://www.7-zip.org/.
 %package plugins
 Summary: Additional plugins for p7zip
 Group: Applications/Archiving
-Requires: %{name} = %{version}
+Requires: %{name} = %{version}-%{release}
 
 %description plugins
 Additional plugins that can be used with 7z to extend its abilities.
@@ -31,7 +31,7 @@ This package contains also a virtual file system for Midnight Commander.
 
 
 %prep
-%setup -n %{name}_%{version}
+%setup -q -n %{name}_%{version}
 
 # Create wrapper scripts, as 7zCon.sfx and Codecs/Formats need to be in the
 # same directory as the binaries, and we don't want them in %{_bindir}.
@@ -77,7 +77,7 @@ EOF
 
 
 %files
-%defattr(-, root, root, 0755)
+%defattr(-,root,root,-)
 %doc ChangeLog README TODO DOCS/*
 %{_bindir}/7za
 %dir %{_libexecdir}/p7zip/
@@ -85,7 +85,7 @@ EOF
 %{_libexecdir}/p7zip/7zCon.sfx
 
 %files plugins
-%defattr(-, root, root, 0755)
+%defattr(-,root,root,-)
 %doc contrib/
 %{_bindir}/7z
 %{_libexecdir}/p7zip/7z
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Thu Mar  1 2007 Matthias Saou <http://freshrpms.net/> 4.44-1
+- Update to 4.44.
+
 * Mon Aug 28 2006 Matthias Saou <http://freshrpms.net/> 4.42-2
 - FC6 rebuild.
 
