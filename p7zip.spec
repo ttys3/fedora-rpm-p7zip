@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.44
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
@@ -57,7 +57,7 @@ EOF
 # Use optflags
 %{__perl} -pi -e 's|^ALLFLAGS=.*|ALLFLAGS=-Wall %{optflags} -fPIC \\|g' \
     makefile.machine
-%{__make} %{?_smp_mflags} 7z 7za sfx
+%{__make} 7z 7za sfx
 
 
 %install
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Thu Mar  1 2007 Matthias Saou <http://freshrpms.net/> 4.44-2
+- Remove _smp_mflags since some builds fail with suspicious errors.
+
 * Thu Mar  1 2007 Matthias Saou <http://freshrpms.net/> 4.44-1
 - Update to 4.44.
 
@@ -145,7 +148,7 @@ EOF
  - upgraded to 4.14
 
 * Mon Dec 20 2004 Marcin Zajączkowski <mszpak@wp.pl>
- - added 7za script and moved SFX module to {_datadir}/%{name}/ to allow 7za & 7z
+ - added 7za script and moved SFX module to _datadir/name/ to allow 7za & 7z
    use it simultaneously
  - returned to plugins in separate package
 
