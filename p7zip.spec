@@ -57,6 +57,7 @@ EOF
 # Use optflags
 %{__perl} -pi -e 's|^ALLFLAGS=.*|ALLFLAGS=-Wall %{optflags} -fPIC \\|g' \
     makefile.machine
+# Don't use _smp_mflags since the build sometimes fails with it (as of 4.44)
 %{__make} 7z 7za sfx
 
 
