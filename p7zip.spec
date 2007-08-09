@@ -1,9 +1,9 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.51
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
-License: LGPLv2 and (LGPL+ or CPL)
+License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
@@ -104,6 +104,9 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Thu Aug  9 2007 Matthias Saou <http://freshrpms.net/> 4.51-2
+- Update License field some more (LGPL+ to LGPLv2+).
+
 * Sun Aug  5 2007 Matthias Saou <http://freshrpms.net/> 4.51-1
 - Update to 4.51.
 - Update License field.
