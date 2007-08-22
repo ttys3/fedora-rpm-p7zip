@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.51
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -104,6 +104,9 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Wed Aug 22 2007 Matthias Saou <http://freshrpms.net/> 4.51-3
+- Rebuild for new BuildID feature.
+
 * Thu Aug  9 2007 Matthias Saou <http://freshrpms.net/> 4.51-2
 - Update License field some more (LGPL+ to LGPLv2+).
 
