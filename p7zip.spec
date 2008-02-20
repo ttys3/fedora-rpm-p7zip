@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 4.51
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -104,6 +104,9 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 4.51-4
+- Autorebuild for GCC 4.3
+
 * Wed Aug 22 2007 Matthias Saou <http://freshrpms.net/> 4.51-3
 - Rebuild for new BuildID feature.
 
