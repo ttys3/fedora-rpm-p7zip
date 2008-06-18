@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.51
-Release: 4%{?dist}
+Version: 4.58
+Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -14,8 +14,8 @@ URL: http://p7zip.sourceforge.net/
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_4.51-norar.patch
-Patch1: p7zip_4.47-install.patch
+Patch0: p7zip_4.58-norar.patch
+Patch1: p7zip_4.58-install.patch
 Patch2: p7zip_4.51-nostrip.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %ifarch x86_64
@@ -104,7 +104,12 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
-* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 4.51-4
+* Wed Jun 18 2008 Matthias Saou <http://freshrpms.net/> 4.58-1
+- Update to 4.58.
+- Update norar patch.
+- Update install patch.
+
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org>
 - Autorebuild for GCC 4.3
 
 * Wed Aug 22 2007 Matthias Saou <http://freshrpms.net/> 4.51-3
