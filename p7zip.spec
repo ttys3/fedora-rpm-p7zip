@@ -1,6 +1,6 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 4.58
+Version: 4.61
 Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
@@ -14,10 +14,13 @@ URL: http://p7zip.sourceforge.net/
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_4.58-norar.patch
+Patch0: p7zip_4.61-norar.patch
 Patch1: p7zip_4.58-install.patch
 Patch2: p7zip_4.51-nostrip.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
+%ifarch %{ix86}
+BuildRequires: nasm
+%endif
 %ifarch x86_64
 BuildRequires: yasm
 %endif
@@ -52,11 +55,14 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %build
-%ifarch %{ix86} ppc ppc64
-%{__cp} -f makefile.linux_x86_ppc_alpha_gcc_4.X makefile.machine
+%ifarch %{ix86}
+%{__cp} -f makefile.linux_x86_asm_gcc_4.X makefile.machine
 %endif
 %ifarch x86_64
 %{__cp} -f makefile.linux_amd64_asm makefile.machine
+%endif
+%ifarch ppc ppc64
+%{__cp} -f makefile.linux_x86_ppc_alpha_gcc_4.X makefile.machine
 %endif
 
 # Don't use _smp_mflags since the build sometimes fails with it (as of 4.44)
@@ -104,6 +110,11 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Tue Dec 23 2008 Matthias Saou <http://freshrpms.net/> 4.61-1
+- Update to 4.61.
+- Update norar patch.
+- Use asm for x86 too (nasm).
+
 * Wed Jun 18 2008 Matthias Saou <http://freshrpms.net/> 4.58-1
 - Update to 4.58.
 - Update norar patch.

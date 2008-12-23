@@ -1,7 +1,7 @@
-diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.58/CPP/7zip/Bundles/Format7zFree/makefile
---- p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile	2008-05-06 21:50:19.000000000 +0200
-+++ p7zip_4.58/CPP/7zip/Bundles/Format7zFree/makefile	2008-06-18 13:03:07.000000000 +0200
-@@ -79,9 +79,6 @@ HmacSha1.o  \
+diff -Naupr p7zip_4.61.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.61/CPP/7zip/Bundles/Format7zFree/makefile
+--- p7zip_4.61.orig/CPP/7zip/Bundles/Format7zFree/makefile	2008-11-28 21:17:16.000000000 +0100
++++ p7zip_4.61/CPP/7zip/Bundles/Format7zFree/makefile	2008-12-23 16:27:04.927434325 +0100
+@@ -83,9 +83,6 @@ HmacSha1.o  \
  Pbkdf2HmacSha1.o  \
  RandGen.o  \
  Sha1.o  \
@@ -11,7 +11,7 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.58/CP
  WzAES.o  \
  ZipCipher.o  \
  ZipCrypto.o  \
-@@ -120,12 +117,6 @@ StreamUtils.o  \
+@@ -124,12 +121,6 @@ StreamUtils.o  \
  7zRegister.o  \
  7zSpecStream.o  \
  7zUpdate.o  \
@@ -21,13 +21,13 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.58/CP
 -RarItem.o  \
 -RarRegister.o  \
 -RarVolumeInStream.o  \
- ArjHandler.o  \
- ArjIn.o  \
- ArjRegister.o  \
-diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.58/CPP/7zip/Bundles/Format7zFree/makefile.list
---- p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2008-05-08 10:27:51.000000000 +0200
-+++ p7zip_4.58/CPP/7zip/Bundles/Format7zFree/makefile.list	2008-06-18 13:03:56.000000000 +0200
-@@ -44,11 +44,6 @@ SRCS=\
+ bz2Register.o  \
+ BZip2Handler.o  \
+ BZip2HandlerOut.o  \
+diff -Naupr p7zip_4.61.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.61/CPP/7zip/Bundles/Format7zFree/makefile.list
+--- p7zip_4.61.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2008-08-14 16:45:27.000000000 +0200
++++ p7zip_4.61/CPP/7zip/Bundles/Format7zFree/makefile.list	2008-12-23 16:28:13.942309528 +0100
+@@ -51,11 +51,6 @@ SRCS=\
   ../../Compress/BZip2/BZip2Decoder.cpp \
   ../../Compress/BZip2/BZip2Encoder.cpp \
   ../../Compress/BZip2/BZip2Register.cpp \
@@ -39,7 +39,7 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
   ../../Compress/Implode/ImplodeDecoder.cpp \
   ../../Compress/Implode/ImplodeHuffmanDecoder.cpp \
   ../../Compress/Lzx/Lzx86Converter.cpp \
-@@ -68,9 +63,6 @@ SRCS=\
+@@ -72,9 +67,6 @@ SRCS=\
   ../../Crypto/Hash/Pbkdf2HmacSha1.cpp \
   ../../Crypto/Hash/RandGen.cpp \
   ../../Crypto/Hash/Sha1.cpp \
@@ -49,7 +49,7 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
   ../../Crypto/WzAES/WzAES.cpp \
   ../../Crypto/Zip/ZipCipher.cpp \
   ../../Crypto/Zip/ZipCrypto.cpp \
-@@ -109,12 +101,6 @@ SRCS=\
+@@ -113,12 +105,6 @@ SRCS=\
   ../../Archive/7z/7zRegister.cpp \
   ../../Archive/7z/7zSpecStream.cpp \
   ../../Archive/7z/7zUpdate.cpp \
@@ -59,10 +59,10 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
 - ../../Archive/Rar/RarItem.cpp \
 - ../../Archive/Rar/RarRegister.cpp \
 - ../../Archive/Rar/RarVolumeInStream.cpp \
-  ../../Archive/Arj/ArjHandler.cpp \
-  ../../Archive/Arj/ArjIn.cpp \
-  ../../Archive/Arj/ArjRegister.cpp \
-@@ -324,16 +310,6 @@ BZip2Encoder.o : ../../Compress/BZip2/BZ
+  ../../Archive/BZip2/bz2Register.cpp \
+  ../../Archive/BZip2/BZip2Handler.cpp \
+  ../../Archive/BZip2/BZip2HandlerOut.cpp \
+@@ -347,16 +333,6 @@ BZip2Encoder.o : ../../Compress/BZip2/BZ
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Compress/BZip2/BZip2Encoder.cpp
  BZip2Register.o : ../../Compress/BZip2/BZip2Register.cpp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Compress/BZip2/BZip2Register.cpp
@@ -79,7 +79,7 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
  ImplodeDecoder.o : ../../Compress/Implode/ImplodeDecoder.cpp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Compress/Implode/ImplodeDecoder.cpp
  ImplodeHuffmanDecoder.o : ../../Compress/Implode/ImplodeHuffmanDecoder.cpp
-@@ -372,12 +348,6 @@ RandGen.o : ../../Crypto/Hash/RandGen.cp
+@@ -391,12 +367,6 @@ RandGen.o : ../../Crypto/Hash/RandGen.cp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Crypto/Hash/RandGen.cpp
  Sha1.o : ../../Crypto/Hash/Sha1.cpp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Crypto/Hash/Sha1.cpp
@@ -92,7 +92,7 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
  WzAES.o : ../../Crypto/WzAES/WzAES.cpp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Crypto/WzAES/WzAES.cpp
  ZipCipher.o : ../../Crypto/Zip/ZipCipher.cpp
-@@ -454,18 +424,6 @@ StreamUtils.o : ../../Common/StreamUtils
+@@ -473,18 +443,6 @@ StreamUtils.o : ../../Common/StreamUtils
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/7z/7zSpecStream.cpp
  7zUpdate.o : ../../Archive/7z/7zUpdate.cpp
  	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/7z/7zUpdate.cpp
@@ -108,31 +108,31 @@ diff -Naupr p7zip_4.58.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
 -	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/Rar/RarRegister.cpp
 -RarVolumeInStream.o : ../../Archive/Rar/RarVolumeInStream.cpp
 -	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/Rar/RarVolumeInStream.cpp
- ArjHandler.o : ../../Archive/Arj/ArjHandler.cpp
- 	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/Arj/ArjHandler.cpp
- ArjIn.o : ../../Archive/Arj/ArjIn.cpp
-diff -Naupr p7zip_4.58.orig/makefile p7zip_4.58/makefile
---- p7zip_4.58.orig/makefile	2008-05-18 13:34:05.000000000 +0200
-+++ p7zip_4.58/makefile	2008-06-18 13:04:17.000000000 +0200
-@@ -41,7 +41,6 @@ depend:
- 	cd CPP/7zip/UI/Client7z       ; $(MAKE) depend
+ bz2Register.o : ../../Archive/BZip2/bz2Register.cpp
+ 	$(CXX) $(CC_SHARED) $(CFLAGS) ../../Archive/BZip2/bz2Register.cpp
+ BZip2Handler.o : ../../Archive/BZip2/BZip2Handler.cpp
+diff -Naupr p7zip_4.61.orig/makefile p7zip_4.61/makefile
+--- p7zip_4.61.orig/makefile	2008-11-30 16:49:38.000000000 +0100
++++ p7zip_4.61/makefile	2008-12-23 16:28:49.215386938 +0100
+@@ -42,7 +42,6 @@ depend:
  	cd CPP/7zip/UI/Console        ; $(MAKE) depend
+ 	cd CPP/7zip/UI/GUI            ; $(MAKE) depend
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) depend
 -	cd CPP/7zip/Compress/Rar      ; $(MAKE) depend
  
  sfx: common
  	$(MKDIR) bin
 @@ -51,7 +50,6 @@ sfx: common
+ common7z:common
  	$(MKDIR) bin/Codecs
- 	cd CPP/7zip/UI/Console           ; $(MAKE) all
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) all
 -	cd CPP/7zip/Compress/Rar         ; $(MAKE) all
  
- clean:
- 	cd CPP/myWindows                 ; $(MAKE) clean
-@@ -61,7 +59,6 @@ clean:
- 	cd CPP/7zip/UI/Client7z          ; $(MAKE) clean
- 	cd CPP/7zip/UI/Console           ; $(MAKE) clean
+ 7z: common7z
+ 	cd CPP/7zip/UI/Console           ; $(MAKE) all
+@@ -71,7 +69,6 @@ clean:
+ 	cd CPP/7zip/UI/FileManager       ; $(MAKE) clean
+ 	cd CPP/7zip/UI/GUI               ; $(MAKE) clean
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) clean
 -	cd CPP/7zip/Compress/Rar         ; $(MAKE) clean
  	cd CPP/7zip/Compress/LZMA_Alone  ; $(MAKE) clean
