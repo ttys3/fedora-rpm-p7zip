@@ -1,7 +1,7 @@
-diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.65/CPP/7zip/Bundles/Format7zFree/makefile
---- p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile	2009-02-09 21:47:24.000000000 +0100
-+++ p7zip_4.65/CPP/7zip/Bundles/Format7zFree/makefile	2009-04-12 20:47:44.973127047 +0200
-@@ -172,14 +172,6 @@ NSIS_OBJS = \
+diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile
+--- p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile	2009-06-04 21:06:49.000000000 +0200
++++ p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile	2009-12-08 13:21:22.713559220 +0100
+@@ -150,14 +150,6 @@ NSIS_OBJS = \
    NsisIn.o \
    NsisRegister.o \
  
@@ -13,10 +13,10 @@ diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.65/CP
 -  RarVolumeInStream.o \
 -  RarRegister.o \
 -
- # SplitHandlerOut.o
- SPLIT_OBJS = \
-   SplitHandler.o \
-@@ -257,13 +249,6 @@ COMPRESS_OBJS = \
+ TAR_OBJS = \
+   TarHandler.o \
+   TarHandlerOut.o \
+@@ -233,13 +225,6 @@ COMPRESS_OBJS = \
    ZlibDecoder.o \
    ZDecoder.o \
  
@@ -30,7 +30,7 @@ diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.65/CP
  CRYPTO_OBJS = \
    7zAes.o \
    7zAesRegister.o \
-@@ -271,8 +256,6 @@ CRYPTO_OBJS = \
+@@ -247,8 +232,6 @@ CRYPTO_OBJS = \
    MyAes.o \
    Pbkdf2HmacSha1.o \
    RandGen.o \
@@ -39,18 +39,18 @@ diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_4.65/CP
    Sha1.o \
    WzAes.o \
    ZipCrypto.o \
-@@ -315,7 +298,6 @@ OBJS = \
-   $(LZH_OBJS) \
-   $(LZM_OBJS) \
+@@ -298,7 +281,6 @@ OBJS = \
+   $(HFS_OBJS) \
+   $(ISO_OBJS) \
    $(NSIS_OBJS) \
 -  $(RAR_OBJS) \
-   $(SPLIT_OBJS) \
    $(TAR_OBJS) \
    $(UDF_OBJS) \
-diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.65/CPP/7zip/Bundles/Format7zFree/makefile.list
---- p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-02-09 21:04:32.000000000 +0100
-+++ p7zip_4.65/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-04-12 20:47:04.713126284 +0200
-@@ -141,13 +141,6 @@ SRCS=\
+   $(WIM_OBJS) \
+diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile.list
+--- p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-06-04 21:01:21.000000000 +0200
++++ p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-12-08 13:21:52.858319619 +0100
+@@ -124,13 +124,6 @@ SRCS=\
   ../../Archive/Nsis/NsisIn.cpp \
   ../../Archive/Nsis/NsisRegister.cpp \
   \
@@ -61,10 +61,10 @@ diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
 - ../../Archive/Rar/RarVolumeInStream.cpp \
 - ../../Archive/Rar/RarRegister.cpp \
 - \
-  ../../Archive/Split/SplitHandler.cpp \
-  ../../Archive/Split/SplitRegister.cpp \
-  \
-@@ -229,8 +222,6 @@ SRCS=\
+  ../../Archive/Tar/TarHandler.cpp \
+  ../../Archive/Tar/TarHandlerOut.cpp \
+  ../../Archive/Tar/TarHeader.cpp \
+@@ -212,8 +205,6 @@ SRCS=\
   ../../Crypto/RandGen.cpp \
   ../../Crypto/Sha1.cpp \
   ../../Crypto/WzAes.cpp \
@@ -73,9 +73,9 @@ diff -Naupr p7zip_4.65.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_4.
   ../../Crypto/ZipCrypto.cpp \
   ../../Crypto/ZipStrong.cpp
  
-diff -Naupr p7zip_4.65.orig/makefile p7zip_4.65/makefile
---- p7zip_4.65.orig/makefile	2009-02-14 17:03:50.000000000 +0100
-+++ p7zip_4.65/makefile	2009-04-12 20:48:21.342256593 +0200
+diff -Naupr p7zip_9.04.orig/makefile p7zip_9.04/makefile
+--- p7zip_9.04.orig/makefile	2009-06-04 20:28:50.000000000 +0200
++++ p7zip_9.04/makefile	2009-12-08 13:22:30.120194667 +0100
 @@ -41,7 +41,6 @@ depend:
  	cd CPP/7zip/UI/Client7z       ; $(MAKE) depend
  	cd CPP/7zip/UI/Console        ; $(MAKE) depend
