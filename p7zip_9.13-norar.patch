@@ -1,7 +1,7 @@
-diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile
---- p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile	2009-06-04 21:06:49.000000000 +0200
-+++ p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile	2009-12-08 13:21:22.713559220 +0100
-@@ -150,14 +150,6 @@ NSIS_OBJS = \
+diff -Naupr --exclude='*.orig' p7zip_9.13.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.13/CPP/7zip/Bundles/Format7zFree/makefile
+--- p7zip_9.13.orig/CPP/7zip/Bundles/Format7zFree/makefile	2010-03-16 20:49:21.000000000 +0100
++++ p7zip_9.13/CPP/7zip/Bundles/Format7zFree/makefile	2010-07-08 14:10:34.309397353 +0200
+@@ -156,14 +156,6 @@ NSIS_OBJS = \
    NsisIn.o \
    NsisRegister.o \
  
@@ -16,8 +16,8 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CP
  TAR_OBJS = \
    TarHandler.o \
    TarHandlerOut.o \
-@@ -233,13 +225,6 @@ COMPRESS_OBJS = \
-   ZlibDecoder.o \
+@@ -241,13 +233,6 @@ COMPRESS_OBJS = \
+   ZlibEncoder.o \
    ZDecoder.o \
  
 -COMPRESS_OBJS_NON_FREE = \
@@ -30,7 +30,7 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CP
  CRYPTO_OBJS = \
    7zAes.o \
    7zAesRegister.o \
-@@ -247,8 +232,6 @@ CRYPTO_OBJS = \
+@@ -255,8 +240,6 @@ CRYPTO_OBJS = \
    MyAes.o \
    Pbkdf2HmacSha1.o \
    RandGen.o \
@@ -39,7 +39,7 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CP
    Sha1.o \
    WzAes.o \
    ZipCrypto.o \
-@@ -298,7 +281,6 @@ OBJS = \
+@@ -312,7 +295,6 @@ OBJS = \
    $(HFS_OBJS) \
    $(ISO_OBJS) \
    $(NSIS_OBJS) \
@@ -47,10 +47,10 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile p7zip_9.04/CP
    $(TAR_OBJS) \
    $(UDF_OBJS) \
    $(WIM_OBJS) \
-diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile.list
---- p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-06-04 21:01:21.000000000 +0200
-+++ p7zip_9.04/CPP/7zip/Bundles/Format7zFree/makefile.list	2009-12-08 13:21:52.858319619 +0100
-@@ -124,13 +124,6 @@ SRCS=\
+diff -Naupr --exclude='*.orig' p7zip_9.13.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_9.13/CPP/7zip/Bundles/Format7zFree/makefile.list
+--- p7zip_9.13.orig/CPP/7zip/Bundles/Format7zFree/makefile.list	2010-03-16 20:50:11.000000000 +0100
++++ p7zip_9.13/CPP/7zip/Bundles/Format7zFree/makefile.list	2010-07-08 14:10:34.325397501 +0200
+@@ -131,13 +131,6 @@ SRCS=\
   ../../Archive/Nsis/NsisIn.cpp \
   ../../Archive/Nsis/NsisRegister.cpp \
   \
@@ -64,7 +64,7 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_9.
   ../../Archive/Tar/TarHandler.cpp \
   ../../Archive/Tar/TarHandlerOut.cpp \
   ../../Archive/Tar/TarHeader.cpp \
-@@ -212,8 +205,6 @@ SRCS=\
+@@ -218,8 +211,6 @@ SRCS=\
   ../../Crypto/RandGen.cpp \
   ../../Crypto/Sha1.cpp \
   ../../Crypto/WzAes.cpp \
@@ -73,18 +73,18 @@ diff -Naupr p7zip_9.04.orig/CPP/7zip/Bundles/Format7zFree/makefile.list p7zip_9.
   ../../Crypto/ZipCrypto.cpp \
   ../../Crypto/ZipStrong.cpp
  
-diff -Naupr p7zip_9.04.orig/makefile p7zip_9.04/makefile
---- p7zip_9.04.orig/makefile	2009-06-04 20:28:50.000000000 +0200
-+++ p7zip_9.04/makefile	2009-12-08 13:22:30.120194667 +0100
-@@ -41,7 +41,6 @@ depend:
+diff -Naupr --exclude='*.orig' p7zip_9.13.orig/makefile p7zip_9.13/makefile
+--- p7zip_9.13.orig/makefile	2010-04-04 21:12:39.000000000 +0200
++++ p7zip_9.13/makefile	2010-07-08 14:10:34.326397745 +0200
+@@ -52,7 +52,6 @@ depend:
  	cd CPP/7zip/UI/Client7z       ; $(MAKE) depend
  	cd CPP/7zip/UI/Console        ; $(MAKE) depend
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) depend
 -	cd CPP/7zip/Compress/Rar      ; $(MAKE) depend
  	cd CPP/7zip/UI/GUI            ; $(MAKE) depend
+ 	cd CPP/7zip/UI/FileManager    ; $(MAKE) depend
  
- sfx: common
-@@ -51,7 +50,6 @@ sfx: common
+@@ -63,7 +62,6 @@ sfx: common
  common7z:common
  	$(MKDIR) bin/Codecs
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) all
@@ -92,11 +92,11 @@ diff -Naupr p7zip_9.04.orig/makefile p7zip_9.04/makefile
  
  7z: common7z
  	cd CPP/7zip/UI/Console           ; $(MAKE) all
-@@ -71,7 +69,6 @@ clean:
+@@ -88,7 +86,6 @@ clean:
  	cd CPP/7zip/UI/FileManager       ; $(MAKE) clean
  	cd CPP/7zip/UI/GUI               ; $(MAKE) clean
  	cd CPP/7zip/Bundles/Format7zFree ; $(MAKE) clean
 -	cd CPP/7zip/Compress/Rar         ; $(MAKE) clean
  	cd CPP/7zip/Compress/LZMA_Alone  ; $(MAKE) clean
- 	cd CPP/7zip/Compress/PPMD_Alone  ; $(MAKE) clean
  	cd CPP/7zip/Bundles/AloneGCOV    ; $(MAKE) clean
+ 	cd CPP/7zip/TEST/TestUI          ; $(MAKE) clean

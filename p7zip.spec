@@ -1,6 +1,6 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 9.04
+Version: 9.13
 Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
@@ -15,9 +15,9 @@ URL: http://p7zip.sourceforge.net/
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_9.04-norar.patch
+Patch0: p7zip_9.13-norar.patch
 Patch1: p7zip_4.58-install.patch
-Patch2: p7zip_4.51-nostrip.patch
+Patch2: p7zip_9.13-nostrip.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %ifarch %{ix86}
 BuildRequires: nasm
@@ -111,6 +111,10 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Thu Jul  8 2010 Matthias Saou <http://freshrpms.net/> 9.13-1
+- Update to 9.13.
+- Update norar and nostrip patches.
+
 * Tue Dec  8 2009 Matthias Saou <http://freshrpms.net/> 9.04-1
 - Update to 9.04.
 - Update norar patch.
