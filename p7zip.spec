@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 9.13
-Release: 2%{?dist}
+Version: 9.20.1
+Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -15,9 +15,9 @@ URL: http://p7zip.sourceforge.net/
 # rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_9.13-norar.patch
-Patch1: p7zip_4.58-install.patch
-Patch2: p7zip_9.13-nostrip.patch
+Patch0: p7zip_9.20.1-norar.patch
+Patch1: p7zip_9.20.1-install.patch
+Patch2: p7zip_9.20.1-nostrip.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %ifarch %{ix86}
 BuildRequires: nasm
@@ -34,7 +34,6 @@ compression ratio. The original version can be found at http://www.7-zip.org/.
 %package plugins
 Summary: Additional plugins for p7zip
 Group: Applications/Archiving
-Requires: %{name} = %{version}-%{release}
 
 %description plugins
 Additional plugins that can be used with 7z to extend its abilities.
@@ -48,8 +47,8 @@ This package contains also a virtual file system for Midnight Commander.
 %patch2 -p1 -b .nostrip
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
-%{__mv} DOCS docs
-%{__mv} ChangeLog README TODO docs/
+mv DOCS docs
+mv ChangeLog README TODO docs/
 # And fix useless executable bit while we're at it
 find docs    -type f -exec chmod -x {} \;
 find contrib -type f -exec chmod -x {} \;
@@ -57,17 +56,16 @@ find contrib -type f -exec chmod -x {} \;
 
 %build
 %ifarch %{ix86}
-%{__cp} -f makefile.linux_x86_asm_gcc_4.X makefile.machine
+cp -f makefile.linux_x86_asm_gcc_4.X makefile.machine
 %endif
 %ifarch x86_64
-%{__cp} -f makefile.linux_amd64_asm makefile.machine
+cp -f makefile.linux_amd64_asm makefile.machine
 %endif
 %ifarch ppc ppc64
-%{__cp} -f makefile.linux_x86_ppc_alpha_gcc_4.X makefile.machine
+cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-# Don't use _smp_mflags since the build sometimes fails with it (as of 4.44)
-%{__make} %{?_smp_mflags} all2 \
+make %{?_smp_mflags} all2 \
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -76,8 +74,8 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} install \
+rm -rf %{buildroot}
+make install \
     DEST_DIR=%{buildroot} \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -86,7 +84,7 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %clean
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 
 
 %files
@@ -111,33 +109,40 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %changelog
+* Tue Jul 26 2011 Matthias Saou <matthias@saou.eu> 9.20.1-1
+- Update to 9.20.1 (#688564).
+- Update norar, nostrip and install patches.
+- Minor clean ups : Don't use trivial macros + new email address.
+- Don't require the main package from the plugins package (#690551).
+- Use the any_cpu_gcc_4.X makefile for ppc* since the ppc specific one is gone.
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Thu Jul  8 2010 Matthias Saou <http://freshrpms.net/> 9.13-1
+* Thu Jul  8 2010 Matthias Saou <matthias@saou.eu> 9.13-1
 - Update to 9.13.
 - Update norar and nostrip patches.
 
-* Tue Dec  8 2009 Matthias Saou <http://freshrpms.net/> 9.04-1
+* Tue Dec  8 2009 Matthias Saou <matthias@saou.eu> 9.04-1
 - Update to 9.04.
 - Update norar patch.
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.65-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sun Apr 12 2009 Matthias Saou <http://freshrpms.net/> 4.65-1
+* Sun Apr 12 2009 Matthias Saou <matthias@saou.eu> 4.65-1
 - Update to 4.65.
 - Update norar patch.
 
 * Thu Feb 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Tue Dec 23 2008 Matthias Saou <http://freshrpms.net/> 4.61-1
+* Tue Dec 23 2008 Matthias Saou <matthias@saou.eu> 4.61-1
 - Update to 4.61.
 - Update norar patch.
 - Use asm for x86 too (nasm).
 
-* Wed Jun 18 2008 Matthias Saou <http://freshrpms.net/> 4.58-1
+* Wed Jun 18 2008 Matthias Saou <matthias@saou.eu> 4.58-1
 - Update to 4.58.
 - Update norar patch.
 - Update install patch.
@@ -145,17 +150,17 @@ find contrib -type f -exec chmod -x {} \;
 * Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org>
 - Autorebuild for GCC 4.3
 
-* Wed Aug 22 2007 Matthias Saou <http://freshrpms.net/> 4.51-3
+* Wed Aug 22 2007 Matthias Saou <matthias@saou.eu> 4.51-3
 - Rebuild for new BuildID feature.
 
-* Thu Aug  9 2007 Matthias Saou <http://freshrpms.net/> 4.51-2
+* Thu Aug  9 2007 Matthias Saou <matthias@saou.eu> 4.51-2
 - Update License field some more (LGPL+ to LGPLv2+).
 
-* Sun Aug  5 2007 Matthias Saou <http://freshrpms.net/> 4.51-1
+* Sun Aug  5 2007 Matthias Saou <matthias@saou.eu> 4.51-1
 - Update to 4.51.
 - Update License field.
 
-* Tue Jun 19 2007 Matthias Saou <http://freshrpms.net/> 4.47-1
+* Tue Jun 19 2007 Matthias Saou <matthias@saou.eu> 4.47-1
 - Update to 4.47.
 - Include now required patch to exclude removed Rar bits from makefiles.
 - Switch to using "make install" for installation... so patch and hack.
@@ -164,38 +169,38 @@ find contrib -type f -exec chmod -x {} \;
 - Remove no longer included Codecs and Formats dirs (7z.so replaces them?).
 - Remove our wrapper scripts, since the install script creates its own.
 
-* Thu Mar  1 2007 Matthias Saou <http://freshrpms.net/> 4.44-2
+* Thu Mar  1 2007 Matthias Saou <matthias@saou.eu> 4.44-2
 - Remove _smp_mflags since some builds fail with suspicious errors.
 
-* Thu Mar  1 2007 Matthias Saou <http://freshrpms.net/> 4.44-1
+* Thu Mar  1 2007 Matthias Saou <matthias@saou.eu> 4.44-1
 - Update to 4.44.
 
-* Mon Aug 28 2006 Matthias Saou <http://freshrpms.net/> 4.42-2
+* Mon Aug 28 2006 Matthias Saou <matthias@saou.eu> 4.42-2
 - FC6 rebuild.
 
-* Thu Jun 29 2006 Matthias Saou <http://freshrpms.net/> 4.42-1
+* Thu Jun 29 2006 Matthias Saou <matthias@saou.eu> 4.42-1
 - Update to 4.42.
 
-* Tue May  2 2006 Matthias Saou <http://freshrpms.net/> 4.39-1
+* Tue May  2 2006 Matthias Saou <matthias@saou.eu> 4.39-1
 - Update to 4.39.
 - Remove no longer needed gcc 4.1 patch.
 - Use the gcc_4.X makefile.
 - Remove RAR licensed files and RAR license itself (#190277).
 
-* Mon Mar  6 2006 Matthias Saou <http://freshrpms.net/> 4.30-3
+* Mon Mar  6 2006 Matthias Saou <matthias@saou.eu> 4.30-3
 - FC5 rebuild.
 
-* Thu Feb  9 2006 Matthias Saou <http://freshrpms.net/> 4.30-2
+* Thu Feb  9 2006 Matthias Saou <matthias@saou.eu> 4.30-2
 - Rebuild for new gcc/glibc.
 - Include gcc 4.1 patch for extra qualification errors.
 
-* Mon Nov 28 2005 Matthias Saou <http://freshrpms.net/> 4.30-1
+* Mon Nov 28 2005 Matthias Saou <matthias@saou.eu> 4.30-1
 - Update to 4.30.
 
-* Thu Oct 27 2005 Matthias Saou <http://freshrpms.net/> 4.29-3
+* Thu Oct 27 2005 Matthias Saou <matthias@saou.eu> 4.29-3
 - Double quote args passed inside the shell scripts, to fix #171480.
 
-* Mon Oct 10 2005 Matthias Saou <http://freshrpms.net/> 4.29-2
+* Mon Oct 10 2005 Matthias Saou <matthias@saou.eu> 4.29-2
 - Update to 4.29.
 
 * Sun Jun 05 2005 Dag Wieers <dag@wieers.com> - 4.20-1
@@ -205,7 +210,7 @@ find contrib -type f -exec chmod -x {} \;
 - Moved inline scripts to %%prep stage.
 - Removed quotes for $@ as it should not be necessary.
 
-* Thu Mar 17 2005 Matthias Saou <http://freshrpms.net/> 4.14.01-1
+* Thu Mar 17 2005 Matthias Saou <matthias@saou.eu> 4.14.01-1
 - Spec file cleanup.
 - Fix wrapper scripts : Double quote $@ for filenames with spaces to work.
 - Move files from /usr/share to /usr/libexec.
