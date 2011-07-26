@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 9.20.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -18,6 +18,7 @@ Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_9.20.1-norar.patch
 Patch1: p7zip_9.20.1-install.patch
 Patch2: p7zip_9.20.1-nostrip.patch
+Patch3: p7zip_9.20.1-execstack.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %ifarch %{ix86}
 BuildRequires: nasm
@@ -45,6 +46,7 @@ This package contains also a virtual file system for Midnight Commander.
 %patch0 -p1 -b .norar
 %patch1 -p1 -b .install
 %patch2 -p1 -b .nostrip
+%patch3 -p1 -b .execstack
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
 mv DOCS docs
@@ -109,6 +111,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jul 26 2011 Matthias Saou <matthias@saou.eu> 9.20.1-2
+- Execstack patch to fix what's wanted by the yasm code (#718778).
+
 * Tue Jul 26 2011 Matthias Saou <matthias@saou.eu> 9.20.1-1
 - Update to 9.20.1 (#688564).
 - Update norar, nostrip and install patches.
