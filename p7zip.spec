@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 9.20.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -111,6 +111,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
