@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -95,6 +95,7 @@ make install \
 %files plugins
 %doc contrib/
 %{_bindir}/7z
+%dir %{_libexecdir}/p7zip/
 %{_libexecdir}/p7zip/7z
 %{_libexecdir}/p7zip/7z.so
 #{_libexecdir}/p7zip/Codecs/
@@ -103,6 +104,9 @@ make install \
 
 
 %changelog
+* Thu Nov 12 2015 Sérgio Basto <sergio@serjux.com> - 15.09-2
+- fix rhbz #917366
+
 * Thu Nov 05 2015 Sérgio Basto <sergio@serjux.com> - 15.09-1
 - Update to p7zip_15.09
 - Use cmake.
