@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -17,6 +17,7 @@ URL: http://p7zip.sourceforge.net/
 Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_15.09-norar_cmake.patch
 Patch1: p7zip_15.09-s390.patch
+Patch2: p7zip-15.09-CVE-2015-1038.patch
 
 BuildRequires: cmake
 # BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
@@ -45,6 +46,7 @@ This package contains also a virtual file system for Midnight Commander.
 %setup -q -n %{name}_%{version}
 %patch0 -p1 -b .norar_cmake
 %patch1 -p1 -b .s390
+%patch2 -p1 -b .CVE-2015-1038
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
 mv DOC docs
@@ -106,6 +108,9 @@ make install \
 
 
 %changelog
+* Thu Dec 03 2015 Sérgio Basto <sergio@serjux.com> - 15.09-4
+- Fix CVE-2015-1038 (#1179505)
+
 * Wed Dec 02 2015 Sérgio Basto <sergio@serjux.com> - 15.09-3
 - Fix build on s390 architecture (#1286992)
 
