@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 9.20.1
-Release: 2%{?dist}
+Version: 15.09
+Release: 4%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -12,14 +12,15 @@ URL: http://p7zip.sourceforge.net/
 # wget http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
 # rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto}/Rar*
-# rm -f p7zip_${VERSION}/DOCS/unRarLicense.txt
+# rm p7zip_${VERSION}/DOC/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_9.20.1-norar.patch
-Patch1: p7zip_9.20.1-install.patch
-Patch2: p7zip_9.20.1-nostrip.patch
-Patch3: p7zip_9.20.1-execstack.patch
-Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Patch0: p7zip_15.09-norar_cmake.patch
+Patch1: p7zip_15.09-s390.patch
+Patch2: p7zip-15.09-CVE-2015-1038.patch
+
+BuildRequires: cmake
+# BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
 %ifarch %{ix86}
 BuildRequires: nasm
 %endif
@@ -43,13 +44,12 @@ This package contains also a virtual file system for Midnight Commander.
 
 %prep
 %setup -q -n %{name}_%{version}
-%patch0 -p1 -b .norar
-%patch1 -p1 -b .install
-%patch2 -p1 -b .nostrip
-%patch3 -p1 -b .execstack
+%patch0 -p1 -b .norar_cmake
+%patch1 -p1 -b .s390
+%patch2 -p1 -b .CVE-2015-1038
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
-mv DOCS docs
+mv DOC docs
 mv ChangeLog README TODO docs/
 # And fix useless executable bit while we're at it
 find docs    -type f -exec chmod -x {} \;
@@ -57,6 +57,9 @@ find contrib -type f -exec chmod -x {} \;
 
 
 %build
+pushd CPP/7zip/CMAKE/
+./generate.sh
+popd
 %ifarch %{ix86}
 cp -f makefile.linux_x86_asm_gcc_4.X makefile.machine
 %endif
@@ -76,7 +79,6 @@ make %{?_smp_mflags} all2 \
 
 
 %install
-rm -rf %{buildroot}
 make install \
     DEST_DIR=%{buildroot} \
     DEST_HOME=%{_prefix} \
@@ -85,12 +87,7 @@ make install \
     DEST_MAN=%{_mandir}
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %files
-%defattr(-,root,root,-)
 %doc docs/*
 %{_bindir}/7za
 %dir %{_libexecdir}/p7zip/
@@ -100,9 +97,9 @@ rm -rf %{buildroot}
 %exclude %{_mandir}/man1/7zr.1*
 
 %files plugins
-%defattr(-,root,root,-)
 %doc contrib/
 %{_bindir}/7z
+%dir %{_libexecdir}/p7zip/
 %{_libexecdir}/p7zip/7z
 %{_libexecdir}/p7zip/7z.so
 #{_libexecdir}/p7zip/Codecs/
@@ -111,6 +108,47 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Dec 03 2015 Sérgio Basto <sergio@serjux.com> - 15.09-4
+- Fix CVE-2015-1038 (#1179505)
+
+* Wed Dec 02 2015 Sérgio Basto <sergio@serjux.com> - 15.09-3
+- Fix build on s390 architecture (#1286992)
+
+* Thu Nov 12 2015 Sérgio Basto <sergio@serjux.com> - 15.09-2
+- fix rhbz #917366
+
+* Thu Nov 05 2015 Sérgio Basto <sergio@serjux.com> - 15.09-1
+- Update to p7zip_15.09
+- Use cmake.
+- Refactor norar patch.
+- Deleted: p7zip_9.20.1-execstack.patch (upstreamed)
+- Deleted: p7zip_9.20.1-install.patch (upstreamed)
+- Deleted: p7zip_9.20.1-nostrip.patch (upstreamed)
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 9.20.1-9
+- Rebuilt for GCC 5 C++11 ABI change
+
+* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+* Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+* Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 9.20.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Tue Jul 26 2011 Matthias Saou <matthias@saou.eu> 9.20.1-2
 - Execstack patch to fix what's wanted by the yasm code (#718778).
 
