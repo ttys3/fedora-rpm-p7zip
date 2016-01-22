@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -18,6 +18,7 @@ Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_15.09-norar_cmake.patch
 Patch1: p7zip_15.09-s390.patch
 Patch2: p7zip-15.09-CVE-2015-1038.patch
+Patch3: p7zip_15.09-no7zG_and_7zFM.patch
 
 BuildRequires: cmake
 # BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
@@ -47,6 +48,7 @@ This package contains also a virtual file system for Midnight Commander.
 %patch0 -p1 -b .norar_cmake
 %patch1 -p1 -b .s390
 %patch2 -p1 -b .CVE-2015-1038
+%patch3 -p1 -b .no7zG_and_7zFM.patch
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
 mv DOC docs
@@ -109,6 +111,12 @@ make install \
 
 
 %changelog
+* Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-6
+- Stating in License.txt file that we removed non-Free unrar code
+  from sources (#190277)
+- Fix incorrect fsf address in the license files.
+- Add p7zip_15.09-no7zG_and_7zFM.patch in a diferent patch.
+
 * Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-5
 - Add license tag
 - better solutions for "create unowned directory" (#917366)
