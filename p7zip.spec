@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -99,7 +99,9 @@ make install \
 %doc docs/*
 %license copying.txt License.txt
 %{_bindir}/7za
-%{_libexecdir}/p7zip/
+%dir %{_libexecdir}/p7zip/
+%{_libexecdir}/p7zip/7za
+%{_libexecdir}/p7zip/7zCon.sfx
 %{_mandir}/man1/7za.1*
 %exclude %{_mandir}/man1/7zr.1*
 
@@ -115,6 +117,9 @@ make install \
 
 
 %changelog
+* Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-8
+- Revert better solutions for "create unowned directory"
+
 * Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-7
 - Split incorrect-fsf-address.patch and do not pack backup files
 
