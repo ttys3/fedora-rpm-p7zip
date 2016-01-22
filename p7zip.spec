@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -19,6 +19,7 @@ Patch0: p7zip_15.09-norar_cmake.patch
 Patch1: p7zip_15.09-s390.patch
 Patch2: p7zip-15.09-CVE-2015-1038.patch
 Patch3: p7zip_15.09-no7zG_and_7zFM.patch
+Patch4: p7zip_15.09-incorrect-fsf-address.patch
 
 BuildRequires: cmake
 # BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
@@ -46,9 +47,12 @@ This package contains also a virtual file system for Midnight Commander.
 %prep
 %setup -q -n %{name}_%{version}
 %patch0 -p1 -b .norar_cmake
+#Remove backups from DOC directory
+rm DOC/License.txt.*
 %patch1 -p1 -b .s390
 %patch2 -p1 -b .CVE-2015-1038
 %patch3 -p1 -b .no7zG_and_7zFM.patch
+%patch4 -p1
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
 mv DOC docs
@@ -111,6 +115,9 @@ make install \
 
 
 %changelog
+* Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-7
+- Split incorrect-fsf-address.patch and do not pack backup files
+
 * Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-6
 - Stating in License.txt file that we removed non-Free unrar code
   from sources (#190277)
