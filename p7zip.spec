@@ -1,13 +1,13 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
-#Source: http://downloads.sf.net/p7zip/p7zip_%{version}_src_all.tar.bz2
+#Source: http://downloads.sf.net/p7zip/p7zip_%%{version}_src_all.tar.bz2
 # VERSION=
 # wget http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
@@ -51,6 +51,8 @@ This package contains also a virtual file system for Midnight Commander.
 # can include them in %%doc
 mv DOC docs
 mv ChangeLog README TODO docs/
+# move license files
+mv docs/License.txt docs/copying.txt .
 # And fix useless executable bit while we're at it
 find docs    -type f -exec chmod -x {} \;
 find contrib -type f -exec chmod -x {} \;
@@ -89,10 +91,9 @@ make install \
 
 %files
 %doc docs/*
+%license copying.txt License.txt
 %{_bindir}/7za
-%dir %{_libexecdir}/p7zip/
-%{_libexecdir}/p7zip/7za
-%{_libexecdir}/p7zip/7zCon.sfx
+%{_libexecdir}/p7zip/
 %{_mandir}/man1/7za.1*
 %exclude %{_mandir}/man1/7zr.1*
 
@@ -108,6 +109,10 @@ make install \
 
 
 %changelog
+* Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-5
+- Add license tag
+- better solutions for "create unowned directory" (#917366)
+
 * Thu Dec 03 2015 Sérgio Basto <sergio@serjux.com> - 15.09-4
 - Fix CVE-2015-1038 (#1179505)
 
