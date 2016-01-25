@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.09
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -20,6 +20,8 @@ Patch1: p7zip_15.09-s390.patch
 Patch2: p7zip-15.09-CVE-2015-1038.patch
 Patch3: p7zip_15.09-no7zG_and_7zFM.patch
 Patch4: p7zip_15.09-incorrect-fsf-address.patch
+# from Debain
+Patch5: 02_man.patch
 
 BuildRequires: cmake
 # BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
@@ -53,6 +55,7 @@ rm DOC/License.txt.*
 %patch2 -p1 -b .CVE-2015-1038
 %patch3 -p1 -b .no7zG_and_7zFM.patch
 %patch4 -p1
+%patch5 -p1 -b .man
 # Move docs early so that they don't get installed by "make install" and we
 # can include them in %%doc
 mv DOC docs
@@ -93,6 +96,11 @@ make install \
     DEST_BIN=%{_bindir} \
     DEST_SHARE=%{_libexecdir}/p7zip \
     DEST_MAN=%{_mandir}
+find %{buildroot}
+
+
+%check
+find %{buildroot}
 
 
 %files
@@ -117,6 +125,9 @@ make install \
 
 
 %changelog
+* Mon Jan 25 2016 Sérgio Basto <sergio@serjux.com> - 15.09-9
+- Add 02_man.patch from Debian
+
 * Fri Jan 22 2016 Sérgio Basto <sergio@serjux.com> - 15.09-8
 - Revert better solutions for "create unowned directory"
 
