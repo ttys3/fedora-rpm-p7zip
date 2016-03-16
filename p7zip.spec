@@ -1,30 +1,28 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 15.09
-Release: 10%{?dist}
+Version: 15.14
+Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
 #Source: http://downloads.sf.net/p7zip/p7zip_%%{version}_src_all.tar.bz2
-# VERSION=
+# export VERSION=15.14
 # wget http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
-# rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto}/Rar*
+# rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto,QMAKE}/Rar*
 # rm p7zip_${VERSION}/DOC/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_15.09-norar_cmake.patch
-Patch1: p7zip_15.09-s390.patch
-Patch2: p7zip-15.09-CVE-2015-1038.patch
-Patch3: p7zip_15.09-no7zG_and_7zFM.patch
-Patch4: p7zip_15.09-incorrect-fsf-address.patch
+Patch0: p7zip_15.14-norar_cmake.patch
 # from Debain
 Patch5: 02_man.patch
 
 BuildRequires: cmake
-# BuildRequires: wxGTK3-devel wxGTK-devel # for 7zG GUI
+# for 7zG GUI
+BuildRequires: wxGTK-devel
+BuildRequires: kde-filesystem
 %ifarch %{ix86}
 BuildRequires: nasm
 %endif
@@ -45,31 +43,34 @@ Group: Applications/Archiving
 Additional plugins that can be used with 7z to extend its abilities.
 This package contains also a virtual file system for Midnight Commander.
 
+%package gui
+Summary: 7zG - 7-Zip GUI version
+Requires: kde-filesystem
+
+%description gui
+7zG is a gui provide by p7zip and it is now in beta stage.
+Also add some context menus for KDE4.
+This package is *experimental*.
+
 
 %prep
 %setup -q -n %{name}_%{version}
 %patch0 -p1 -b .norar_cmake
 #Remove backups from DOC directory
 rm DOC/License.txt.*
-%patch1 -p1 -b .s390
-%patch2 -p1 -b .CVE-2015-1038
-%patch3 -p1 -b .no7zG_and_7zFM.patch
-%patch4 -p1
 %patch5 -p1 -b .man
-# Move docs early so that they don't get installed by "make install" and we
-# can include them in %%doc
-mv DOC docs
-mv ChangeLog README TODO docs/
 # move license files
-mv docs/License.txt docs/copying.txt .
-# And fix useless executable bit while we're at it
-find docs    -type f -exec chmod -x {} \;
-find contrib -type f -exec chmod -x {} \;
+mv DOC/License.txt DOC/copying.txt .
+
+# no need anymore
+## And fix useless executable bit while we're at it
+#find docs    -type f -exec chmod -x {} \;
+#find contrib -type f -exec chmod -x {} \;
 
 
 %build
 pushd CPP/7zip/CMAKE/
-./generate.sh
+sh ./generate.sh
 popd
 %ifarch %{ix86}
 cp -f makefile.linux_x86_asm_gcc_4.X makefile.machine
@@ -81,7 +82,7 @@ cp -f makefile.linux_amd64_asm makefile.machine
 cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-make %{?_smp_mflags} all2 \
+make %{?_smp_mflags} all2 7zG \
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -96,15 +97,21 @@ make install \
     DEST_BIN=%{_bindir} \
     DEST_SHARE=%{_libexecdir}/p7zip \
     DEST_MAN=%{_mandir}
-find %{buildroot}
 
+# remove redundant DOC dir
+mv %{buildroot}%{_docdir}/p7zip/DOC/* %{buildroot}%{_docdir}/p7zip
+rmdir %{buildroot}%{_docdir}/p7zip/DOC/
+
+mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
+cp GUI/kde4/*.desktop %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 
 %check
-find %{buildroot}
+make test
+#make test_7zG || :
 
 
 %files
-%doc docs/*
+%{_docdir}/p7zip
 %license copying.txt License.txt
 %{_bindir}/7za
 %dir %{_libexecdir}/p7zip/
@@ -123,8 +130,25 @@ find %{buildroot}
 #{_libexecdir}/p7zip/Formats/
 %{_mandir}/man1/7z.1*
 
+%files gui
+%{_bindir}/7zG
+%{_bindir}/p7zipForFilemanager
+%{_libexecdir}/p7zip/7zG
+%{_libexecdir}/p7zip/Lang
+%{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
+
 
 %changelog
+* Tue Mar 15 2016 Sérgio Basto <sergio@serjux.com> - 15.14-1
+- Update to 15.14 .
+- Rebase norar_cmake.patch
+- Minor improvement in snippet of documentation.
+- Drop patch1, from changelog build on s390 is fixed.
+- Drop p7zip-15.09-CVE-2015-1038.patch, from changelog if fixed.
+- Drop upstreamed p7zip_15.09-incorrect-fsf-address.patch .
+- Drop p7zip_15.09-no7zG_and_7zFM.patch, p7zip build is fixed.
+- Add sub-package p7zip-gui with 7zG.
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 15.09-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
