@@ -1,7 +1,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 15.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
@@ -82,7 +82,7 @@ cp -f makefile.linux_amd64_asm makefile.machine
 cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-make %{?_smp_mflags} all2 7zG \
+make %{?_smp_mflags} all2 7zG 7zFM \
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -103,7 +103,11 @@ mv %{buildroot}%{_docdir}/p7zip/DOC/* %{buildroot}%{_docdir}/p7zip
 rmdir %{buildroot}%{_docdir}/p7zip/DOC/
 
 mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
+# remove a duplicated of p7zip_compress.desktop
+rm GUI/kde4/p7zip_compress2.desktop
 cp GUI/kde4/*.desktop %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
+#fix non-executable-in-bin
+chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 
 %check
 make test
@@ -132,13 +136,21 @@ make test
 
 %files gui
 %{_bindir}/7zG
+%{_bindir}/7zFM
 %{_bindir}/p7zipForFilemanager
 %{_libexecdir}/p7zip/7zG
+%{_libexecdir}/p7zip/7zFM
 %{_libexecdir}/p7zip/Lang
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
 
 
 %changelog
+* Thu Mar 17 2016 Sérgio Basto <sergio@serjux.com> - 15.14-2
+- Fix non-executable-in-bin for p7zipForFilemanager.
+- Remove p7zip_compress2.desktop to not duplicate the menu entries.
+- Also build 7zFM, rebuild p7zip_15.14_src_all-norar.tar.bz2, to build 7zFM
+  instead 7zFM_do_not_use.
+
 * Tue Mar 15 2016 Sérgio Basto <sergio@serjux.com> - 15.14-1
 - Update to 15.14 .
 - Rebase norar_cmake.patch
