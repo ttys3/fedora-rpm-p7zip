@@ -1,14 +1,14 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 15.14
-Release: 2%{?dist}
+Version: 15.14.1
+Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
 #Source: http://downloads.sf.net/p7zip/p7zip_%%{version}_src_all.tar.bz2
-# export VERSION=15.14
+# export VERSION=15.14.1
 # wget http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
 # tar xjvf p7zip_${VERSION}_src_all.tar.bz2
 # rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto,QMAKE}/Rar*
@@ -82,7 +82,7 @@ cp -f makefile.linux_amd64_asm makefile.machine
 cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-make %{?_smp_mflags} all2 7zG 7zFM \
+make %{?_smp_mflags} all2 7zG \
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -111,6 +111,8 @@ chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 
 %check
 make test
+# Next test fails, because we don't have X11 envoirment ...
+# Error: Unable to initialize gtk, is DISPLAY set properly?
 #make test_7zG || :
 
 
@@ -136,15 +138,18 @@ make test
 
 %files gui
 %{_bindir}/7zG
-%{_bindir}/7zFM
 %{_bindir}/p7zipForFilemanager
 %{_libexecdir}/p7zip/7zG
-%{_libexecdir}/p7zip/7zFM
 %{_libexecdir}/p7zip/Lang
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
 
 
 %changelog
+* Sun Mar 27 2016 Sérgio Basto <sergio@serjux.com> - 15.14.1-1
+- Update to 15.14.1
+- Revert 7zFM build, upstream recomends not build it
+  http://sourceforge.net/p/p7zip/bugs/175/
+
 * Thu Mar 17 2016 Sérgio Basto <sergio@serjux.com> - 15.14-2
 - Fix non-executable-in-bin for p7zipForFilemanager.
 - Remove p7zip_compress2.desktop to not duplicate the menu entries.
