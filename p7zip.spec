@@ -1,6 +1,6 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
-Version: 15.14.1
+Version: 16.02
 Release: 1%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
@@ -145,6 +145,9 @@ make test
 
 
 %changelog
+* Mon Jul 18 2016 Sérgio Basto <sergio@serjux.com> - 16.02-1
+- Update p7zip to 16.02 and fix security issues
+
 * Sun Mar 27 2016 Sérgio Basto <sergio@serjux.com> - 15.14.1-1
 - Update to 15.14.1
 - Revert 7zFM build, upstream recomends not build it
