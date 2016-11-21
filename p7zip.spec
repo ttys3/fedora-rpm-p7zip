@@ -112,7 +112,9 @@ cp GUI/kde4/*.desktop %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 
 %check
+%if 0%{?rhel} != 6
 make test
+%endif
 # Next test fails, because we don't have X11 envoirment ...
 # Error: Unable to initialize gtk, is DISPLAY set properly?
 #make test_7zG || :
