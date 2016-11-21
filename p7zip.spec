@@ -18,6 +18,7 @@ Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_15.14-norar_cmake.patch
 # from Debain
 Patch5: 02_man.patch
+Patch6: CVE-2016-9296.patch
 
 BuildRequires: cmake
 # for 7zG GUI
@@ -61,6 +62,7 @@ rm DOC/License.txt.*
 %patch5 -p1 -b .man
 # move license files
 mv DOC/License.txt DOC/copying.txt .
+%patch6 -p1 -b .CVE-2016-9296
 
 # no need anymore
 ## And fix useless executable bit while we're at it
