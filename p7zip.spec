@@ -1,10 +1,9 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
-Group: Applications/Archiving
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
 #Source: http://downloads.sf.net/p7zip/p7zip_%%{version}_src_all.tar.bz2
@@ -55,14 +54,11 @@ This package is *experimental*.
 
 
 %prep
-%setup -q -n %{name}_%{version}
-%patch0 -p1 -b .norar_cmake
+%autosetup -p1 -n %{name}_%{version}
 #Remove backups from DOC directory
 rm DOC/License.txt.*
-%patch5 -p1 -b .man
 # move license files
 mv DOC/License.txt DOC/copying.txt .
-%patch6 -p1 -b .CVE-2016-9296
 
 # no need anymore
 ## And fix useless executable bit while we're at it
@@ -84,7 +80,7 @@ cp -f makefile.linux_amd64_asm makefile.machine
 cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-make %{?_smp_mflags} all2 7zG \
+%make_build all2 7zG \
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -149,6 +145,9 @@ make test
 
 
 %changelog
+* Sun Sep 10 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 16.02-6
+- Cleanup spec
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
