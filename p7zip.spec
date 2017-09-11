@@ -55,8 +55,6 @@ This package is *experimental*.
 
 %prep
 %autosetup -p1 -n %{name}_%{version}
-#Remove backups from DOC directory
-rm DOC/License.txt.*
 # move license files
 mv DOC/License.txt DOC/copying.txt .
 
