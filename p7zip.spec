@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -63,17 +63,19 @@ Also add some context menus for KDE4.
 This package is *experimental*.
 %endif
 
+%package        doc
+Summary:        Manual documentation and contrib directory
+BuildArch:      noarch
+
+%description    doc
+This package contains the p7zip manual documentation and some code
+contributions.
 
 %prep
 %autosetup -p1 -n %{name}_%{version}
+
 # move license files
 mv DOC/License.txt DOC/copying.txt .
-
-# no need anymore
-## And fix useless executable bit while we're at it
-#find docs    -type f -exec chmod -x {} \;
-#find contrib -type f -exec chmod -x {} \;
-
 
 %build
 pushd CPP/7zip/CMAKE/
@@ -132,6 +134,7 @@ make test
 
 %files
 %{_docdir}/p7zip
+%exclude  %{_docdir}/p7zip/MANUAL
 %license copying.txt License.txt
 %{_bindir}/7za
 %dir %{_libexecdir}/p7zip/
@@ -141,7 +144,6 @@ make test
 %exclude %{_mandir}/man1/7zr.1*
 
 %files plugins
-%doc contrib/
 %{_bindir}/7z
 %dir %{_libexecdir}/p7zip/
 %{_libexecdir}/p7zip/7z
@@ -159,13 +161,21 @@ make test
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
 %endif
 
+%files doc
+%{_docdir}/p7zip/MANUAL
+%doc contrib/
+
 
 %changelog
+* Wed Jan 24 2018 Sérgio Basto <sergio@serjux.com> - 16.02-8
+- Add sub-package doc
+
 * Wed Jan 24 2018 Tomas Hoger <thoger@redhat.com> - 16.02-7
 - Add conditional for building with(out) GUI support.  Keep GUI enabled for
   Fedora and EPEL builds, but disabled for RHEL.
 - Add missing dependency - 7zG requires 7z.so, so p7zip-gui needs to require
   p7zip-plugins.
+- Add sub-package doc (sergiomb)
 
 * Sun Sep 10 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 16.02-6
 - Cleanup spec
