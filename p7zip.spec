@@ -122,7 +122,7 @@ chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 %endif
 
 %check
-%if 0%{?rhel} > 6
+%if 0%{?rhel} != 6
 make test
 %endif
 # Next test fails, because we don't have X11 envoirment ...
