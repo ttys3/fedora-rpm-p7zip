@@ -1,7 +1,13 @@
+%if 0%{?rhel} && ! 0%{?epel}
+%bcond_with gui
+%else
+%bcond_without gui
+%endif
+
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -20,9 +26,11 @@ Patch5: 02_man.patch
 Patch6: CVE-2016-9296.patch
 
 BuildRequires: cmake
+%if %{with gui}
 # for 7zG GUI
 BuildRequires: wxGTK-devel
 BuildRequires: kde-filesystem
+%endif
 %ifarch %{ix86}
 BuildRequires: nasm
 %endif
@@ -43,14 +51,17 @@ Group: Applications/Archiving
 Additional plugins that can be used with 7z to extend its abilities.
 This package contains also a virtual file system for Midnight Commander.
 
+%if %{with gui}
 %package gui
 Summary: 7zG - 7-Zip GUI version
 Requires: kde-filesystem
+Requires: p7zip-plugins
 
 %description gui
 7zG is a gui provide by p7zip and it is now in beta stage.
 Also add some context menus for KDE4.
 This package is *experimental*.
+%endif
 
 
 %prep
@@ -78,7 +89,10 @@ cp -f makefile.linux_amd64_asm makefile.machine
 cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 %endif
 
-%make_build all2 7zG \
+%make_build all2 \
+%if %{with gui}
+	7zG \
+%endif
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
     DEST_BIN=%{_bindir} \
@@ -98,15 +112,17 @@ make install \
 mv %{buildroot}%{_docdir}/p7zip/DOC/* %{buildroot}%{_docdir}/p7zip
 rmdir %{buildroot}%{_docdir}/p7zip/DOC/
 
+%if %{with gui}
 mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 # remove a duplicated of p7zip_compress.desktop
 rm GUI/kde4/p7zip_compress2.desktop
 cp GUI/kde4/*.desktop %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 #fix non-executable-in-bin
 chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
+%endif
 
 %check
-%if 0%{?rhel} != 6
+%if 0%{?rhel} > 6
 make test
 %endif
 # Next test fails, because we don't have X11 envoirment ...
@@ -134,15 +150,23 @@ make test
 #{_libexecdir}/p7zip/Formats/
 %{_mandir}/man1/7z.1*
 
+%if %{with gui}
 %files gui
 %{_bindir}/7zG
 %{_bindir}/p7zipForFilemanager
 %{_libexecdir}/p7zip/7zG
 %{_libexecdir}/p7zip/Lang
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
+%endif
 
 
 %changelog
+* Wed Jan 24 2018 Tomas Hoger <thoger@redhat.com> - 16.02-7
+- Add conditional for building with(out) GUI support.  Keep GUI enabled for
+  Fedora and EPEL builds, but disabled for RHEL.
+- Add missing dependency - 7zG requires 7z.so, so p7zip-gui needs to require
+  p7zip-plugins.
+
 * Sun Sep 10 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 16.02-6
 - Cleanup spec
 
