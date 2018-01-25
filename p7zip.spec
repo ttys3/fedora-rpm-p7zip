@@ -175,7 +175,6 @@ make test
   Fedora and EPEL builds, but disabled for RHEL.
 - Add missing dependency - 7zG requires 7z.so, so p7zip-gui needs to require
   p7zip-plugins.
-- Add sub-package doc (sergiomb)
 
 * Sun Sep 10 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 16.02-6
 - Cleanup spec
