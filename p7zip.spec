@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -22,8 +22,13 @@ URL: http://p7zip.sourceforge.net/
 Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_15.14-norar_cmake.patch
 # from Debain
-Patch5: 02_man.patch
+Patch5: 02-man.patch
 Patch6: CVE-2016-9296.patch
+Patch7: 05-hardening-flags.patch
+Patch8: 09-man-update.patch
+Patch9: 10-drop-fm-doc.patch
+Patch10: 13-CVE-2017-17969.patch
+Patch11: 14-Fix-g++-warning.patch
 
 BuildRequires: cmake
 %if %{with gui}
@@ -124,7 +129,7 @@ chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 %endif
 
 %check
-%if 0%{?rhel} != 6
+%if ! 0%{?rhel} || 0%{?rhel} >= 7
 make test
 %endif
 # Next test fails, because we don't have X11 envoirment ...
@@ -167,6 +172,12 @@ make test
 
 
 %changelog
+* Sat Jan 27 2018 Sérgio Basto <sergio@serjux.com> - 16.02-9
+- Security fix for CVE-2017-17969 (from Debian)
+- Add 05-hardening-flags.patch, 09-man-update.patch, 10-drop-fm-doc.patch
+  and 14-Fix-g++-warning.patch patches from Debian, very small changes
+  better documentation, compile flags and compile warning.
+
 * Wed Jan 24 2018 Sérgio Basto <sergio@serjux.com> - 16.02-8
 - Add sub-package doc
 
