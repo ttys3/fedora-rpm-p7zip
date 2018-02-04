@@ -22,11 +22,10 @@ URL: http://p7zip.sourceforge.net/
 Source: p7zip_%{version}_src_all-norar.tar.bz2
 Patch0: p7zip_15.14-norar_cmake.patch
 # from Debain
+Patch4: p7zip-manpages.patch
 Patch5: 02-man.patch
 Patch6: CVE-2016-9296.patch
 Patch7: 05-hardening-flags.patch
-Patch8: 09-man-update.patch
-Patch9: 10-drop-fm-doc.patch
 Patch10: 13-CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
 
