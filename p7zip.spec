@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -26,7 +26,7 @@ Patch4: p7zip-manpages.patch
 Patch5: 02-man.patch
 Patch6: CVE-2016-9296.patch
 Patch7: 05-hardening-flags.patch
-Patch10: 13-CVE-2017-17969.patch
+Patch10: CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
 
 BuildRequires: cmake
@@ -171,6 +171,9 @@ make test
 
 
 %changelog
+* Tue Feb 06 2018 Sérgio Basto <sergio@serjux.com> - 16.02-10
+- Improve security patch
+
 * Sat Jan 27 2018 Sérgio Basto <sergio@serjux.com> - 16.02-9
 - Security fix for CVE-2017-17969 (from Debian)
 - Add 05-hardening-flags.patch, 09-man-update.patch, 10-drop-fm-doc.patch
