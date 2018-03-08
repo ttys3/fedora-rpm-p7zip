@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 10%{?dist}
+Release: 11%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -171,6 +171,10 @@ make test
 
 
 %changelog
+* Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 16.02-11
+- Rebuild to fix GCC 8 mis-compilation
+  See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
+
 * Tue Feb 06 2018 Sérgio Basto <sergio@serjux.com> - 16.02-10
 - Improve security patch
 
