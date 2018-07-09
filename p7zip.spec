@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -32,7 +32,7 @@ Patch11: 14-Fix-g++-warning.patch
 BuildRequires: cmake
 %if %{with gui}
 # for 7zG GUI
-BuildRequires: wxGTK-devel
+BuildRequires: wxGTK3-devel
 BuildRequires: kde-filesystem
 %endif
 %ifarch %{ix86}
@@ -171,6 +171,9 @@ make test
 
 
 %changelog
+* Mon Jul 09 2018 Scott Talbert <swt@techie.net> - 16.02-12
+- Rebuild with wxWidgets 3.0
+
 * Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 16.02-11
 - Rebuild to fix GCC 8 mis-compilation
   See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
