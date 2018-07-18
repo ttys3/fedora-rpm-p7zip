@@ -29,6 +29,8 @@ Patch7: 05-hardening-flags.patch
 Patch10: CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
 
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: cmake
 %if %{with gui}
 # for 7zG GUI
@@ -173,6 +175,7 @@ make test
 %changelog
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+- https://fedoraproject.org/wiki/Changes/Remove_GCC_from_BuildRoot
 
 * Mon Jul 09 2018 Scott Talbert <swt@techie.net> - 16.02-12
 - Rebuild with wxWidgets 3.0
