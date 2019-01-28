@@ -51,7 +51,6 @@ compression ratio. The original version can be found at http://www.7-zip.org/.
 
 %package plugins
 Summary: Additional plugins for p7zip
-Group: Applications/Archiving
 
 %description plugins
 Additional plugins that can be used with 7z to extend its abilities.
