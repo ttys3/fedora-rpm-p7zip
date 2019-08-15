@@ -1,4 +1,4 @@
-%if 0%{?rhel} && ! 0%{?epel}
+%if ( 0%{?rhel} && ! 0%{?epel} ) || 0%{?epel} == 8
 %bcond_with gui
 %else
 %bcond_without gui
@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -172,6 +172,9 @@ make test
 
 
 %changelog
+* Thu Aug 15 2019 Orion Poplawski <orion@nwra.com> - 16.02-16
+- Build without gui for now in EPEL8
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
