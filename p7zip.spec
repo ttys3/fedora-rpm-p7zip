@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -28,6 +28,7 @@ Patch6: CVE-2016-9296.patch
 Patch7: 05-hardening-flags.patch
 Patch10: CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
+Patch12: gcc10-conversion.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -172,6 +173,9 @@ make test
 
 
 %changelog
+* Tue Sep 24 2019 Sérgio Basto <sergio@serjux.com> - 16.02-16
+- Add gcc10-conversion.patch provide by Red Hat's compiler team
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
