@@ -20,7 +20,7 @@ URL: http://p7zip.sourceforge.net/
 # rm p7zip_${VERSION}/DOC/unRarLicense.txt
 # tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
 Source: p7zip_%{version}_src_all-norar.tar.bz2
-Patch0: p7zip_15.14-norar_cmake.patch
+#Patch0: p7zip_15.14-norar_cmake.patch
 # from Debain
 Patch4: p7zip-manpages.patch
 Patch5: 02-man.patch
