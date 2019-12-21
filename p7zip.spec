@@ -153,7 +153,7 @@ make test
 %dir %{_libexecdir}/p7zip/
 %{_libexecdir}/p7zip/7z
 %{_libexecdir}/p7zip/7z.so
-#{_libexecdir}/p7zip/Codecs/
+%{_libexecdir}/p7zip/Codecs/
 #{_libexecdir}/p7zip/Formats/
 %{_mandir}/man1/7z.1*
 
