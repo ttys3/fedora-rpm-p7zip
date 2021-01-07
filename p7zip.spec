@@ -30,6 +30,7 @@ Patch10: CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
 Patch12: gcc10-conversion.patch
 
+BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
