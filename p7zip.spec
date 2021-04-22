@@ -38,7 +38,11 @@ BuildRequires: gcc-c++
 BuildRequires: cmake
 %if %{with gui}
 # for 7zG GUI
+%if 0%{?rhel} && 0%{?rhel} <= 7
+BuildRequires: wxGTK-devel
+%else
 BuildRequires: wxGTK3-devel
+%endif
 BuildRequires: kde-filesystem
 %endif
 %ifarch %{ix86}
