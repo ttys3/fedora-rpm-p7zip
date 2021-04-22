@@ -1,4 +1,4 @@
-%if 0%{?rhel} && ! 0%{?epel}
+%if ( 0%{?rhel} && ! 0%{?epel} ) || 0%{?epel} == 8
 %bcond_with gui
 %else
 %bcond_without gui
@@ -192,8 +192,11 @@ make test
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
-* Tue Sep 24 2019 Sérgio Basto <sergio@serjux.com> - 16.02-16
+* Tue Sep 24 2019 Sérgio Basto <sergio@serjux.com> - 16.02-16.1
 - Add gcc10-conversion.patch provide by Red Hat's compiler team
+
+* Thu Aug 15 2019 Orion Poplawski <orion@nwra.com> - 16.02-16
+- Build without gui for now in EPEL8
 
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
