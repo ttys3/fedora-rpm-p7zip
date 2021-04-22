@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 19%{?dist}
+Release: 20%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -29,6 +29,8 @@ Patch7: 05-hardening-flags.patch
 Patch10: CVE-2017-17969.patch
 Patch11: 14-Fix-g++-warning.patch
 Patch12: gcc10-conversion.patch
+Patch13: 0001-fix-data-null-pointer.patch
+Patch14: 0001-fix-out-of-mem.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -174,6 +176,9 @@ make test
 
 
 %changelog
+* Thu Apr 22 2021 Sérgio Basto <sergio@serjux.com> - 16.02-20
+- Fix two Null Pointer Dereferences, thanks to NSFOCUS Security Team
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
