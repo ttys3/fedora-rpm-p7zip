@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -180,6 +180,9 @@ make test
 
 
 %changelog
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
