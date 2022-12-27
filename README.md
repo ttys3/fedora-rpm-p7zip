@@ -2,7 +2,7 @@
 
 p7zip for fedora with rar support
 
-# installation
+## installation
 
 download the rpm files at https://github.com/ttys3/fedora-rpm-p7zip/releases
 
@@ -22,8 +22,19 @@ and edit `/etc/dnf/dnf.conf`, add p7zip to dnf ignore:
 +exclude=p7zip p7zip-plugins
 ```
 
+## how to build
 
-# why this repo exists?
+```shell
+sudo dnf builddep -y ./p7zip.spec
+
+export VERSION=16.02
+curl -LO http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
+mv p7zip_${VERSION}_src_all.tar.bz2 $HOME/rpmbuild/SOURCES/p7zip_16.02_src_all-norar.tar.bz2
+cp -v *.patch $HOME/rpmbuild/SOUR
+rpmbuild -bb ./p7zip.spec
+```
+
+## why this repo exists?
 
 according to Igor Pavlov ( https://sourceforge.net/p/sevenzip/discussion/45798/thread/dc2d0438/#8f9f ):
 
