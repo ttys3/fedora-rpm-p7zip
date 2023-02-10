@@ -103,7 +103,7 @@ cp -f makefile.linux_any_cpu_gcc_4.X makefile.machine
 
 %make_build all2 \
 %if %{with gui}
-	7zG \
+    7zG \
 %endif
     OPTFLAGS="%{optflags}" \
     DEST_HOME=%{_prefix} \
