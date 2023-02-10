@@ -12,15 +12,12 @@ Release: 24%{?dist}
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
 # RAR sources removed since their license is incompatible with the LGPL
-#Source: http://downloads.sf.net/p7zip/p7zip_%%{version}_src_all.tar.bz2
-# export VERSION=15.14.1
-# wget http://downloads.sf.net/p7zip/p7zip_${VERSION}_src_all.tar.bz2
-# tar xjvf p7zip_${VERSION}_src_all.tar.bz2
-# rm -rf p7zip_${VERSION}/CPP/7zip/{Archive,Compress,Crypto,QMAKE}/Rar*
-# rm p7zip_${VERSION}/DOC/unRarLicense.txt
-# tar --numeric-owner -cjvf p7zip_${VERSION}_src_all-norar.tar.bz2 p7zip_${VERSION}
-Source: p7zip_%{version}_src_all-norar.tar.bz2
-#Patch0: p7zip_15.14-norar_cmake.patch
+
+#Source0: https://nchc.dl.sourceforge.net/project/p7zip/p7zip/16.02/p7zip_16.02_src_all.tar.bz2
+
+Source0: http://downloads.sf.net/p7zip/p7zip_16.02_src_all.tar.bz2
+
+Patch0: p7zip_15.14-no_cmake.patch
 # from Debain
 Patch4: p7zip-manpages.patch
 Patch5: 02-man.patch
