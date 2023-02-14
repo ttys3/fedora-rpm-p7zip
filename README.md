@@ -1,5 +1,9 @@
 # fedora-rpm-p7zip
 
+moved to https://github.com/ttys3/my-fedora-packages
+
+------------------------------------------------------
+
 p7zip for fedora with rar support
 
 # installation
